@@ -207,7 +207,7 @@ const SAMPLE = [
  {id:"L1004130",titulo:"La tele en el monte",lugar:"Ribeira Sacra (por confirmar)",pais:"España",ssdd:["Desarrollo personal"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Uncanny",cierre:"En el monte, no hay nada que ver.",es:"",en:""},
  {id:"L1043153",titulo:"Zaragoza / Barcelona",lugar:"Carretera N-II",pais:"España",ssdd:["Desarrollo personal"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Seco-irónico",cierre:"En la N-II, no hay nada que ver.",es:"",en:""},
  {id:"L1004411",titulo:"El contenedor rosa",lugar:"Madrid",pais:"España",ssdd:["Desarrollo personal"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Deadpan con cariño",cierre:"En Madrid, no hay nada que ver.",es:"",en:""},
- {id:"L1042740",titulo:"La crema solar",lugar:"Playa (por confirmar)",pais:"España",ssdd:["Salud"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Deadpan",cierre:"En la playa, no hay nada que ver.",es:"",en:""},
+ {id:"L1010060-2",titulo:"La crema solar",lugar:"Por confirmar",pais:"España",ssdd:["Salud"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Deadpan",cierre:"Aquí no hay nada que ver.",es:"",en:""},
  {id:"L1004075",titulo:"El socorrista",lugar:"Playa (por confirmar)",pais:"España",ssdd:["Desarrollo personal"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Atmosférico",cierre:"En la playa, no hay nada que ver.",es:"",en:""},
  {id:"L1005822-2",titulo:"Bellas Artes",lugar:"Ciudad de México",pais:"México",ssdd:["Desarrollo personal"],apta:false,estado:"Borrador",tamanoMax:"70×100",kick:"Contraste",cierre:"En Ciudad de México, no hay nada que ver.",es:"",en:""},
  {id:"L1005186",titulo:"Mario",lugar:"El Retiro, Madrid",pais:"España",ssdd:["Dinero"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Tierno-seco",cierre:"En el Retiro, no hay nada que ver.",es:"",en:""}
@@ -276,14 +276,13 @@ function openDetail(id){
   let story = (LANG==='en'&&p.en) ? p.en : (p.es||"");
   const close = p.cierre||"";
   if(LANG!=='en' && close && story.trimEnd().endsWith(close)){ story = story.slice(0, story.lastIndexOf(close)).trimEnd(); }
-  if(!story) story = (p.estado!=="Cerrado" ? "Guion en preparación." : "");
+  if(!story) story = "";
   document.getElementById("d-story").textContent = story;
   const showClose = (LANG!=='en') && !!close && p.estado==="Cerrado";
   const dc=document.getElementById("d-close");
   dc.textContent = showClose ? close : "";
   dc.style.display = showClose ? "" : "none";
-  document.getElementById("d-tags").innerHTML = (p.ssdd||[]).map(s=>'<span class="chip">'+esc(s)+'</span>').join("")+
-       (p.tamanoMax?'<span class="chip">Hasta '+esc(p.tamanoMax)+' cm</span>':'');
+  document.getElementById("d-tags").innerHTML = (p.tamanoMax?'<span class="chip">Hasta '+esc(p.tamanoMax)+' cm</span>':'');
   // comercio
   const c=document.getElementById("d-commerce");
   if(p.estado!=="Cerrado"){

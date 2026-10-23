@@ -46,7 +46,7 @@ export async function onRequest(context) {
       if (link) reelByPieza[link] = r.fields;
     }
 
-    const out = piezas.map((p) => {
+    const out = piezas.filter((p) => p.fields["Publicar"]).map((p) => {
       const f = p.fields;
       const reel = reelByPieza[p.id] || {};
       return {
