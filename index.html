@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>No hay nada que ver</title>
+<meta name="description" content="Fotografía documental y de calle. Mira lo que no viste.">
+<style>
+  :root{
+    --paper:#f5f3ee; --ink:#17150f; --muted:#6f6a5f; --line:#ddd8cc;
+    --accent:#b23a2e; --card:#efece4;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(22px,4vw,44px)}
+
+  /* header */
+  header.site{position:sticky;top:0;z-index:20;background:rgba(245,243,238,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:14px;height:68px}
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none;cursor:pointer}
+  .logo svg{display:block}
+  .brand{font-weight:700;letter-spacing:-.01em;font-size:17px;white-space:nowrap}
+  .tag{color:var(--muted);font-size:12.5px;margin-left:2px;display:none}
+  @media(min-width:760px){.tag{display:inline}}
+  .bar .sp{flex:1}
+  nav.top a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:20px;cursor:pointer}
+  nav.top a:hover{color:var(--ink)}
+
+  /* hero */
+  .hero{padding-top:40px;padding-bottom:18px}
+  .hero .big{font-size:clamp(34px,7.8vw,104px);line-height:.95;letter-spacing:-.03em;margin:0;font-weight:800;text-transform:uppercase;overflow-wrap:break-word}
+  .metarow{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:baseline;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+  .metarow .mr-brand{font-weight:700;color:var(--ink)}
+  .metarow .mr-desc{flex:1;min-width:240px}
+  .metarow .mr-nav a{cursor:pointer}
+  .herofig{position:relative;margin:6px 0 8px;width:100%;cursor:pointer}
+  .herofig img{width:100%;height:min(76vh,780px);object-fit:cover;display:block;background:var(--card)}
+  .herohint{position:absolute;right:16px;bottom:16px;background:rgba(23,21,15,.72);color:#fff;font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:6px 11px;border-radius:100px;pointer-events:none;opacity:.85}
+
+  /* grid */
+  .section-h{display:flex;align-items:baseline;gap:12px;margin:34px 0 16px}
+  .section-h h2{font-size:14px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:600;margin:0}
+  .section-h .ln{flex:1;height:1px;background:var(--line)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:4px}
+  .card{position:relative;display:block;border:0;background:none;padding:0;text-align:left;cursor:pointer;color:inherit}
+  .thumb{position:relative;width:100%;aspect-ratio:3/2;overflow:hidden;background:var(--card)}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+  .card:hover .thumb img{transform:scale(1.03)}
+  .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#b8b2a4}
+  .ph .pid{font-size:11px;letter-spacing:.08em}
+  .card .meta{padding:9px 2px 20px}
+  .card .t{font-weight:600;font-size:15px;letter-spacing:-.01em}
+  .card .l{color:var(--muted);font-size:13px}
+  .badge{position:absolute;top:9px;left:9px;background:var(--ink);color:var(--paper);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:2px}
+  .badge.soon{background:#b8b2a4;color:#fff}
+
+  /* detail */
+  .detail{padding:28px 0 60px;display:none}
+  .back{color:var(--muted);text-decoration:none;font-size:14px;cursor:pointer;display:inline-block;margin-bottom:18px}
+  .back:hover{color:var(--ink)}
+  .dgrid{display:grid;grid-template-columns:1fr;gap:34px}
+  @media(min-width:880px){.dgrid{grid-template-columns:1.25fr 1fr;gap:48px;align-items:start}}
+  .dimg{position:relative;width:100%;aspect-ratio:3/2;background:var(--card);overflow:hidden}
+  .dimg img{width:100%;height:100%;object-fit:cover;display:block}
+  .kick{color:var(--accent);font-size:13px;letter-spacing:.04em;text-transform:uppercase;font-weight:600;margin-bottom:8px}
+  .detail h1{font-size:clamp(26px,4vw,38px);line-height:1.08;letter-spacing:-.02em;margin:0 0 6px}
+  .place{color:var(--muted);font-size:15px;margin-bottom:22px}
+  .story{font-size:16.5px;white-space:pre-line;margin:0 0 20px}
+  .close-line{font-style:italic;color:var(--ink);border-left:2px solid var(--accent);padding-left:14px;margin:22px 0}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0}
+  .chip{font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:3px 10px}
+  .langtoggle{float:right;font-size:12px;color:var(--muted)}
+  .langtoggle button{background:none;border:0;color:var(--muted);cursor:pointer;font:inherit;padding:0 4px}
+  .langtoggle button.on{color:var(--ink);font-weight:700;text-decoration:underline}
+
+  /* buy */
+  .buy{border:1px solid var(--line);border-radius:6px;padding:18px;margin-top:26px;background:#faf9f5}
+  .buy h3{margin:0 0 4px;font-size:15px}
+  .buy .note{color:var(--muted);font-size:12.5px;margin:0 0 14px}
+  .sizes{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+  .size{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:4px;padding:9px 12px;cursor:pointer;background:#fff;font-size:14px}
+  .size.sel{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+  .size .nm{flex:1}
+  .size .pr{font-weight:600}
+  .btn{display:inline-block;width:100%;text-align:center;background:var(--ink);color:var(--paper);text-decoration:none;padding:12px;border-radius:4px;font-weight:600;border:0;cursor:pointer;font-size:15px}
+  .btn:hover{background:#000}
+  .editorial{border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-top:26px;background:#faf9f5;color:var(--muted);font-size:13.5px}
+
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:34px 0 60px;color:var(--muted);font-size:13px}
+  footer .fb{display:flex;align-items:center;gap:10px;margin-bottom:10px;color:var(--ink);font-weight:600}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="logo" onclick="go('')">
+      <!-- crossed-out eye / lens -->
+      <svg width="26" height="26" viewBox="0 0 48 48" aria-label="logo">
+        <circle cx="24" cy="24" r="15" fill="none" stroke="#17150f" stroke-width="4"/>
+        <circle cx="24" cy="24" r="3.5" fill="#17150f"/>
+        <line x1="9" y1="39" x2="39" y2="9" stroke="#17150f" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <span class="brand">No hay nada que ver</span>
+      <span class="tag">· Mira lo que no viste</span>
+    </a>
+    <span class="sp"></span>
+    <nav class="top">
+      <a onclick="go('')">Galería</a>
+      <a onclick="go('sobre')">Sobre</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <div id="home">
+    <section class="hero wrap">
+      <h1 class="big">Mira lo que no viste</h1>
+      <div class="metarow">
+        <span class="mr-brand">No hay nada que ver</span>
+        <span class="mr-desc">Fotografía de lo que se pasa de largo. Copias firmadas, impresas bajo demanda.</span>
+        <span class="mr-nav"><a onclick="go('sobre')">Sobre →</a></span>
+      </div>
+    </section>
+    <figure class="herofig" id="herofig" onclick="cycleHero()" title="Haz clic para cambiar la portada"></figure>
+    <div class="wrap">
+      <div class="section-h"><h2>Galería</h2><span class="ln"></span></div>
+      <div id="grid" class="grid"></div>
+    </div>
+  </div>
+
+  <!-- SOBRE -->
+  <div id="sobre" class="wrap hidden" style="padding:40px 0 10px;max-width:680px">
+    <a class="back" onclick="go('')">← Galería</a>
+    <h1 style="font-size:32px;letter-spacing:-.02em;margin:0 0 16px">Sobre</h1>
+    <p style="font-size:17px">“No hay nada que ver” es un archivo de lo cotidiano que, mirado dos veces, deja de ser cotidiano. Contradicciones sociales, lo kitsch, lo que sobra, lo que nadie fotografía. De Madrid a Tijuana, de Estocolmo a Puebla: el hilo no es el lugar, es la mirada.</p>
+    <p style="font-size:17px">Cada imagen se puede llevar en copia firmada, impresa bajo demanda en papel de calidad de archivo.</p>
+    <p style="color:var(--muted)">Contacto: hola@nohaynadaquever.com</p>
+  </div>
+
+  <!-- DETAIL -->
+  <div id="detail" class="wrap detail">
+    <a class="back" onclick="go('')">← Galería</a>
+    <div class="dgrid">
+      <div>
+        <div class="dimg" id="d-img"></div>
+      </div>
+      <div>
+        <div class="kick" id="d-kick"></div>
+        <h1 id="d-title"></h1>
+        <div class="place" id="d-place"></div>
+        <div class="langtoggle" id="d-lang"></div>
+        <div class="story" id="d-story"></div>
+        <div class="close-line" id="d-close"></div>
+        <div class="tags" id="d-tags"></div>
+        <div id="d-commerce"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fb">
+      <svg width="20" height="20" viewBox="0 0 48 48"><circle cx="24" cy="24" r="15" fill="none" stroke="#17150f" stroke-width="4"/><circle cx="24" cy="24" r="3.5" fill="#17150f"/><line x1="9" y1="39" x2="39" y2="9" stroke="#17150f" stroke-width="4" stroke-linecap="round"/></svg>
+      No hay nada que ver
+    </div>
+    <div>Copias firmadas · impresión bajo demanda · @nohaynadaquever.prints</div>
+    <div style="margin-top:6px">En todas partes, no hay nada que ver.</div>
+  </div>
+</footer>
+
+<script>
+/* ---------- Catálogo: en producción se lee de /api/catalog (Airtable).
+   En preview/local, si esa API no responde, se usa este SAMPLE (contenido real de la base). ---------- */
+const SAMPLE = [
+ {id:"L1041596",titulo:"Bankia",lugar:"Madrid",pais:"España",ssdd:["Dinero"],apta:false,estado:"Cerrado",tamanoMax:"~A2 (60)",
+  kick:"Protesta seca",cierre:"En Madrid, no hay nada que ver.",
+  es:"Tener techo cuesta la vida.\n\nAquí te lo vendían bonito: la felicidad de tu propia hipoteca, una casa con cara de banquero feliz. Esta foto es de cuando Bankia todavía existía — su anuncio encendido, y a sus pies, alguien durmiendo.\n\nAl banco lo rescatamos entre todos: 24.000 millones de euros públicos, la mayoría sin devolver. Bankia encontró una Caixa nueva. Muchos, aún, duermen al raso.\n\nEstar sin techo también cuesta la vida.",
+  en:"Having a roof costs your life. Here they sold it to you nicely: the happiness of your own mortgage, a house with a happy banker's face. This photo is from back when Bankia still existed — its ad lit up, and at its feet, someone sleeping. We all bailed the bank out: €24 billion of public money, most never returned. Being without a roof costs your life too."},
+ {id:"L1007279-2",titulo:"El cerdito (Mega Puerco)",lugar:"Tijuana",pais:"México",ssdd:["Desarrollo personal"],apta:true,estado:"Cerrado",tamanoMax:"70×100",
+  kick:"Deadpan con cariño",cierre:"En Tijuana, no hay nada que ver.",
+  es:"¿Te preocupa dejar de ser útil?\n\nEl Mega Puerco de Tijuana nació como un depósito de agua. Dicen que lo vistieron de cerdo para atraer a los comercios de abajo — y acabó más famoso que todos ellos. Hoy no guarda agua ni vende nada. No sirve para nada, salvo para que todo el barrio lo quiera.\n\nA veces basta con eso.",
+  en:"Are you worried about becoming useless? Tijuana's Mega Puerco was born as a water tank. They say it was dressed up as a pig to pull customers into the shops below — and ended up more famous than all of them. Today it holds no water and sells nothing. It's good for nothing — except being loved by the whole neighborhood. Sometimes that's enough."},
+ {id:"L1005180",titulo:"Chucky",lugar:"El Retiro, Madrid",pais:"España",ssdd:["Desarrollo personal","Dinero"],apta:true,estado:"Cerrado",tamanoMax:"70×100",
+  kick:"Tierno-seco",cierre:"En el Retiro, no hay nada que ver.",
+  es:"¿Con quién te harías la foto: con Chucky o con el oso amoroso?\n\nEn el Retiro, el terror y la ternura trabajan codo con codo, esperando la misma foto. Detrás de la sonrisa de psicópata hay una persona pasando calor, pensando en la cena. Como tú: con su disfraz para ir a trabajar.\n\n¿Cuál es el tuyo?",
+  en:"Who would you rather pose with — Chucky or the Care Bear? In Madrid's Retiro, horror and cuteness work side by side, waiting for the same photo. Behind the psycho grin there's a person, hot and thinking about dinner. Like you: in their costume for work. What's yours?"},
+ {id:"L1008652",titulo:"Una vida nueva",lugar:"Madrid",pais:"España",ssdd:["Dinero","Desarrollo personal"],apta:false,estado:"Cerrado",tamanoMax:"70×100",
+  kick:"Tierno-seco",cierre:"En Madrid, no hay nada que ver.",
+  es:"Una moneda por una vida nueva.\n\nFue cocinero, de los que salían en el ABC y cobraban bien. Drogas, mala suerte y peores decisiones: una pierna rota, un divorcio. Acabó durmiendo en una tienda de campaña. Y encima, se la quemaron.\n\nA su lado, ella. Dejó la heroína en tres meses, sin metadona, solo con rabia y orgullo.\n\nSueñan con una habitación. Un baño. Y, sobre todo él, una cocina.",
+  en:"A coin for a new life. He was a cook — one of the ones who made the papers and earned well. Drugs, bad luck and worse decisions. Beside him, her: she kicked heroin in three months, no methadone, just rage and pride. They dream of a room. A bathroom. And above all, a kitchen."},
+ {id:"L1001880-2",titulo:"Juanse",lugar:"Malasaña, Madrid",pais:"España",ssdd:["Salud"],apta:true,estado:"Cerrado",tamanoMax:"70×100",
+  kick:"Seco-irónico",cierre:"En Malasaña, no hay nada que ver.",
+  es:"Tarde o temprano, te va a doler la espalda.\n\nEn 1892, en Malasaña, una farmacia ya tenía la cura: la Embrocación Juanse. Lumbago, ciática, reúma, tortícolis — todo con una friega. “Exijan el nombre registrado”, avisaban. Por la autenticidad.\n\nEstos azulejos los taparon con yeso para no pagar el impuesto de Franco a la publicidad. Reaparecieron en 1960. Hoy los tapa el grafiti, y las tiendas de al lado ya cerraron.\n\nCien años vendiendo autenticidad.",
+  en:"Sooner or later, your back will hurt. Back in 1892 a Malasaña pharmacy already had the cure: Juanse Embrocation. These tiles were plastered over to dodge Franco's tax on advertising, and resurfaced in 1960. A hundred years selling authenticity."},
+ {id:"L1043077",titulo:"Hotel",lugar:"Por confirmar",pais:"",ssdd:["Desarrollo personal"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Deadpan minimalista",cierre:"En la carretera, no hay nada que ver.",es:"",en:""},
+ {id:"L1004130",titulo:"La tele en el monte",lugar:"Ribeira Sacra (por confirmar)",pais:"España",ssdd:["Desarrollo personal"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Uncanny",cierre:"En el monte, no hay nada que ver.",es:"",en:""},
+ {id:"L1043153",titulo:"Zaragoza / Barcelona",lugar:"Carretera N-II",pais:"España",ssdd:["Desarrollo personal"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Seco-irónico",cierre:"En la N-II, no hay nada que ver.",es:"",en:""},
+ {id:"L1004411",titulo:"El contenedor rosa",lugar:"Madrid",pais:"España",ssdd:["Desarrollo personal"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Deadpan con cariño",cierre:"En Madrid, no hay nada que ver.",es:"",en:""},
+ {id:"L1042740",titulo:"La crema solar",lugar:"Playa (por confirmar)",pais:"España",ssdd:["Salud"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Deadpan",cierre:"En la playa, no hay nada que ver.",es:"",en:""},
+ {id:"L1004075",titulo:"El socorrista",lugar:"Playa (por confirmar)",pais:"España",ssdd:["Desarrollo personal"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Atmosférico",cierre:"En la playa, no hay nada que ver.",es:"",en:""},
+ {id:"L1005822-2",titulo:"Bellas Artes",lugar:"Ciudad de México",pais:"México",ssdd:["Desarrollo personal"],apta:false,estado:"Borrador",tamanoMax:"70×100",kick:"Contraste",cierre:"En Ciudad de México, no hay nada que ver.",es:"",en:""},
+ {id:"L1005186",titulo:"Mario",lugar:"El Retiro, Madrid",pais:"España",ssdd:["Dinero"],apta:true,estado:"Borrador",tamanoMax:"70×100",kick:"Tierno-seco",cierre:"En el Retiro, no hay nada que ver.",es:"",en:""}
+];
+
+/* Tarifa de ejemplo — editable; en producción vendrá del campo Precio de Airtable */
+const PRECIOS = [
+  {nm:"30×45 cm",  pr:"95 €"},
+  {nm:"50×70 cm",  pr:"180 €"},
+  {nm:"70×100 cm", pr:"320 €"}
+];
+
+let DATA = SAMPLE;
+let LANG = "es";
+const HERO = "L1043077";   // imagen de portada inicial. Cambiar por cualquier ID.
+let heroId = HERO;
+
+async function loadData(){
+  try{
+    const r = await fetch("/api/catalog",{headers:{accept:"application/json"}});
+    if(r.ok){ const j = await r.json(); if(Array.isArray(j)&&j.length) DATA = j; }
+  }catch(e){ /* preview/local: nos quedamos con SAMPLE */ }
+  render();
+}
+
+function imgTag(p,cls){
+  const src = "images/"+p.id+".jpg";
+  return '<img src="'+src+'" alt="'+esc(p.titulo)+'" loading="lazy" '+
+         'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'+
+         '<div class="ph" style="display:none">'+EYE+'<span class="pid">'+p.id+'</span></div>';
+}
+const EYE='<svg width="34" height="34" viewBox="0 0 48 48" opacity=".5"><circle cx="24" cy="24" r="15" fill="none" stroke="#b8b2a4" stroke-width="4"/><circle cx="24" cy="24" r="3.5" fill="#b8b2a4"/><line x1="9" y1="39" x2="39" y2="9" stroke="#b8b2a4" stroke-width="4" stroke-linecap="round"/></svg>';
+
+function heroHTML(h){ return imgTag(h)+'<span class="herohint">↻ Otra portada</span>'; }
+function paintHero(){ const hf=document.getElementById("herofig"); if(hf){ const h=DATA.find(x=>x.id===heroId)||DATA[0]; hf.innerHTML=heroHTML(h); } }
+function cycleHero(){
+  const ids=DATA.map(x=>x.id).filter(id=>id!==heroId);
+  if(!ids.length) return;
+  heroId=ids[Math.floor(Math.random()*ids.length)];
+  paintHero();
+}
+function render(){
+  paintHero();
+  const g=document.getElementById("grid");
+  g.innerHTML = DATA.map(p=>{
+    const soon = p.estado!=="Cerrado";
+    return '<button class="card" onclick="go(\'pieza/'+p.id+'\')">'+
+      '<div class="thumb">'+imgTag(p)+
+        (soon?'<span class="badge soon">Próximamente</span>':(p.apta?'':'<span class="badge">Pieza / no venta</span>'))+
+      '</div>'+
+      '<div class="meta"><div class="t">'+esc(p.titulo)+'</div><div class="l">'+esc(p.lugar||'')+'</div></div>'+
+    '</button>';
+  }).join("");
+}
+
+function openDetail(id){
+  const p = DATA.find(x=>x.id===id); if(!p){go('');return;}
+  document.getElementById("d-img").innerHTML = imgTag(p);
+  document.getElementById("d-kick").textContent = p.kick||"";
+  document.getElementById("d-title").textContent = p.titulo;
+  document.getElementById("d-place").textContent = [p.lugar,p.pais].filter(Boolean).join(" · ");
+  // lang toggle sólo si hay EN
+  const lt=document.getElementById("d-lang");
+  if(p.en){ lt.innerHTML='<button class="'+(LANG==='es'?'on':'')+'" onclick="setLang(\'es\')">ES</button>/<button class="'+(LANG==='en'?'on':'')+'" onclick="setLang(\'en\')">EN</button>'; }
+  else lt.innerHTML='';
+  const story = LANG==='en'&&p.en ? p.en : p.es;
+  document.getElementById("d-story").textContent = story || (p.estado!=="Cerrado" ? "Guion en preparación." : "");
+  document.getElementById("d-close").textContent = p.cierre||"";
+  document.getElementById("d-tags").innerHTML = (p.ssdd||[]).map(s=>'<span class="chip">'+esc(s)+'</span>').join("")+
+       (p.tamanoMax?'<span class="chip">Hasta '+esc(p.tamanoMax)+' cm</span>':'');
+  // comercio
+  const c=document.getElementById("d-commerce");
+  if(p.estado!=="Cerrado"){
+    c.innerHTML='<div class="editorial">Próximamente disponible en copia.</div>';
+  }else if(!p.apta){
+    c.innerHTML='<div class="editorial">Esta es una pieza documental. No se vende como copia decorativa, por respeto a lo que retrata.</div>';
+  }else{
+    c.innerHTML =
+      '<div class="buy"><h3>Copia firmada</h3>'+
+      '<p class="note">Impresión bajo demanda en papel de archivo. Precios de ejemplo.</p>'+
+      '<div class="sizes" id="sizes">'+
+        PRECIOS.map((s,i)=>'<div class="size'+(i===1?' sel':'')+'" onclick="selSize(this)"><span class="nm">'+s.nm+'</span><span class="pr">'+s.pr+'</span></div>').join("")+
+      '</div>'+
+      '<a class="btn" href="mailto:hola@nohaynadaquever.com?subject=Copia: '+encodeURIComponent(p.titulo)+' ('+p.id+')&body='+encodeURIComponent('Hola, me interesa una copia de «'+p.titulo+'». Tamaño: ')+'">Encargar</a>'+
+      '</div>';
+  }
+  show("detail");
+}
+function selSize(el){document.querySelectorAll('#sizes .size').forEach(s=>s.classList.remove('sel'));el.classList.add('sel');}
+function setLang(l){LANG=l;const id=(location.hash.split('/')[1]||'');if(id)openDetail(id);}
+
+function show(which){
+  ["home","sobre","detail"].forEach(x=>document.getElementById(x).classList.toggle("hidden", x!==which && !(which==="home"&&x==="home")));
+  document.getElementById("home").classList.toggle("hidden", which!=="home");
+  document.getElementById("sobre").classList.toggle("hidden", which!=="sobre");
+  const d=document.getElementById("detail"); d.style.display = which==="detail"?"block":"none";
+  window.scrollTo(0,0);
+}
+function go(route){ location.hash = route? "#/"+route : "#/"; }
+function route(){
+  const h=location.hash.replace(/^#\/?/,"");
+  if(h.startsWith("pieza/")) openDetail(h.slice(6));
+  else if(h==="sobre") show("sobre");
+  else show("home");
+}
+function esc(s){return (s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+window.addEventListener("hashchange",route);
+loadData().then(route);
+</script>
+</body>
+</html>
