@@ -62,7 +62,7 @@
   .badge.soon{background:#b8b2a4;color:#fff}
 
   /* detail */
-  .detail{padding:28px 0 60px;display:none}
+  .detail{padding-top:28px;padding-bottom:60px;display:none}
   .back{color:var(--muted);text-decoration:none;font-size:14px;cursor:pointer;display:inline-block;margin-bottom:18px}
   .back:hover{color:var(--ink)}
   .dgrid{display:grid;grid-template-columns:1fr;gap:34px}
@@ -92,6 +92,13 @@
   .btn{display:inline-block;width:100%;text-align:center;background:var(--ink);color:var(--paper);text-decoration:none;padding:12px;border-radius:4px;font-weight:600;border:0;cursor:pointer;font-size:15px}
   .btn:hover{background:#000}
   .editorial{border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-top:26px;background:#faf9f5;color:var(--muted);font-size:13.5px}
+  .editorial a{color:var(--ink);text-decoration:underline;display:inline-block;margin-top:8px}
+  .dimg{cursor:zoom-in}
+  .loupe{position:absolute;width:220px;height:220px;border-radius:50%;background-repeat:no-repeat;box-shadow:0 0 0 2px rgba(255,255,255,.85),0 6px 22px rgba(0,0,0,.4);pointer-events:none;display:none;z-index:6}
+  .zoomhint{position:absolute;right:12px;bottom:12px;background:rgba(23,21,15,.72);color:#fff;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;padding:5px 9px;border-radius:100px;pointer-events:none;z-index:4}
+  .lightbox{position:fixed;inset:0;background:rgba(18,16,12,.95);display:flex;align-items:center;justify-content:center;z-index:100;cursor:zoom-out;padding:20px}
+  .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain;box-shadow:0 10px 50px rgba(0,0,0,.5)}
+  .lightbox .x{position:absolute;top:16px;right:22px;color:#fff;font-size:30px;line-height:1;cursor:pointer;opacity:.85}
 
   footer{border-top:1px solid var(--line);margin-top:40px;padding:34px 0 60px;color:var(--muted);font-size:13px}
   footer .fb{display:flex;align-items:center;gap:10px;margin-bottom:10px;color:var(--ink);font-weight:600}
@@ -102,19 +109,15 @@
 <header class="site">
   <div class="wrap bar">
     <a class="logo" onclick="go('')">
-      <!-- crossed-out eye / lens -->
-      <svg width="26" height="26" viewBox="0 0 48 48" aria-label="logo">
-        <circle cx="24" cy="24" r="15" fill="none" stroke="#17150f" stroke-width="4"/>
-        <circle cx="24" cy="24" r="3.5" fill="#17150f"/>
-        <line x1="9" y1="39" x2="39" y2="9" stroke="#17150f" stroke-width="4" stroke-linecap="round"/>
-      </svg>
+      <!-- ojo / objetivo tachado -->
+      <svg width="24" height="24" viewBox="0 0 156.63 156.63" fill="#17150f" aria-label="logo" xmlns="http://www.w3.org/2000/svg"><circle cx="78.31" cy="78.31" r="22"/><path d="M78.31,26.31c28.67,0,52,23.33,52,52s-23.33,52-52,52-52-23.33-52-52,23.33-52,52-52h0ZM78.31,14.31C42.97,14.31,14.31,42.97,14.31,78.31s28.65,64,64,64,64-28.65,64-64S113.66,14.31,78.31,14.31h0Z"/><path d="M0,148.14c2.67,2.99,5.5,5.82,8.48,8.48L156.63,8.49c-2.67-2.99-5.5-5.82-8.49-8.49L0,148.14Z"/></svg>
       <span class="brand">No hay nada que ver</span>
-      <span class="tag">· Mira lo que no viste</span>
     </a>
     <span class="sp"></span>
     <nav class="top">
       <a onclick="go('')">Galería</a>
       <a onclick="go('sobre')">Sobre</a>
+      <a href="https://instagram.com/nohaynadaquever.prints" target="_blank" rel="noopener">Instagram</a>
     </nav>
   </div>
 </header>
@@ -127,7 +130,6 @@
       <div class="metarow">
         <span class="mr-brand">No hay nada que ver</span>
         <span class="mr-desc">Fotografía de lo que se pasa de largo. Copias firmadas, impresas bajo demanda.</span>
-        <span class="mr-nav"><a onclick="go('sobre')">Sobre →</a></span>
       </div>
     </section>
     <figure class="herofig" id="herofig" onclick="cycleHero()" title="Haz clic para cambiar la portada"></figure>
@@ -143,7 +145,7 @@
     <h1 style="font-size:32px;letter-spacing:-.02em;margin:0 0 16px">Sobre</h1>
     <p style="font-size:17px">“No hay nada que ver” es un archivo de lo cotidiano que, mirado dos veces, deja de ser cotidiano. Contradicciones sociales, lo kitsch, lo que sobra, lo que nadie fotografía. De Madrid a Tijuana, de Estocolmo a Puebla: el hilo no es el lugar, es la mirada.</p>
     <p style="font-size:17px">Cada imagen se puede llevar en copia firmada, impresa bajo demanda en papel de calidad de archivo.</p>
-    <p style="color:var(--muted)">Contacto: hola@nohaynadaquever.com</p>
+    <p style="color:var(--muted)">Contacto: <a href="mailto:hola@nohaynadaquever.com" style="color:var(--ink)">hola@nohaynadaquever.com</a> · <a href="https://instagram.com/nohaynadaquever.prints" target="_blank" rel="noopener" style="color:var(--ink)">Instagram</a></p>
   </div>
 
   <!-- DETAIL -->
@@ -154,7 +156,6 @@
         <div class="dimg" id="d-img"></div>
       </div>
       <div>
-        <div class="kick" id="d-kick"></div>
         <h1 id="d-title"></h1>
         <div class="place" id="d-place"></div>
         <div class="langtoggle" id="d-lang"></div>
@@ -170,10 +171,10 @@
 <footer>
   <div class="wrap">
     <div class="fb">
-      <svg width="20" height="20" viewBox="0 0 48 48"><circle cx="24" cy="24" r="15" fill="none" stroke="#17150f" stroke-width="4"/><circle cx="24" cy="24" r="3.5" fill="#17150f"/><line x1="9" y1="39" x2="39" y2="9" stroke="#17150f" stroke-width="4" stroke-linecap="round"/></svg>
+      <svg width="20" height="20" viewBox="0 0 156.63 156.63" fill="#17150f" xmlns="http://www.w3.org/2000/svg"><circle cx="78.31" cy="78.31" r="22"/><path d="M78.31,26.31c28.67,0,52,23.33,52,52s-23.33,52-52,52-52-23.33-52-52,23.33-52,52-52h0ZM78.31,14.31C42.97,14.31,14.31,42.97,14.31,78.31s28.65,64,64,64,64-28.65,64-64S113.66,14.31,78.31,14.31h0Z"/><path d="M0,148.14c2.67,2.99,5.5,5.82,8.48,8.48L156.63,8.49c-2.67-2.99-5.5-5.82-8.49-8.49L0,148.14Z"/></svg>
       No hay nada que ver
     </div>
-    <div>Copias firmadas · impresión bajo demanda · @nohaynadaquever.prints</div>
+    <div>Copias firmadas · impresión bajo demanda · <a href="https://instagram.com/nohaynadaquever.prints" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">@nohaynadaquever.prints</a></div>
     <div style="margin-top:6px">En todas partes, no hay nada que ver.</div>
   </div>
 </footer>
@@ -238,7 +239,7 @@ function imgTag(p,cls){
          'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'+
          '<div class="ph" style="display:none">'+EYE+'<span class="pid">'+p.id+'</span></div>';
 }
-const EYE='<svg width="34" height="34" viewBox="0 0 48 48" opacity=".5"><circle cx="24" cy="24" r="15" fill="none" stroke="#b8b2a4" stroke-width="4"/><circle cx="24" cy="24" r="3.5" fill="#b8b2a4"/><line x1="9" y1="39" x2="39" y2="9" stroke="#b8b2a4" stroke-width="4" stroke-linecap="round"/></svg>';
+const EYE='<svg width="34" height="34" viewBox="0 0 156.63 156.63" fill="#b8b2a4" opacity=".6" xmlns="http://www.w3.org/2000/svg"><circle cx="78.31" cy="78.31" r="22"/><path d="M78.31,26.31c28.67,0,52,23.33,52,52s-23.33,52-52,52-52-23.33-52-52,23.33-52,52-52h0ZM78.31,14.31C42.97,14.31,14.31,42.97,14.31,78.31s28.65,64,64,64,64-28.65,64-64S113.66,14.31,78.31,14.31h0Z"/><path d="M0,148.14c2.67,2.99,5.5,5.82,8.48,8.48L156.63,8.49c-2.67-2.99-5.5-5.82-8.49-8.49L0,148.14Z"/></svg>';
 
 function heroHTML(h){ return imgTag(h)+'<span class="herohint">↻ Otra portada</span>'; }
 function paintHero(){ const hf=document.getElementById("herofig"); if(hf){ const h=DATA.find(x=>x.id===heroId)||DATA[0]; hf.innerHTML=heroHTML(h); } }
@@ -265,16 +266,22 @@ function render(){
 function openDetail(id){
   const p = DATA.find(x=>x.id===id); if(!p){go('');return;}
   document.getElementById("d-img").innerHTML = imgTag(p);
-  document.getElementById("d-kick").textContent = p.kick||"";
+  setupZoom();
   document.getElementById("d-title").textContent = p.titulo;
   document.getElementById("d-place").textContent = [p.lugar,p.pais].filter(Boolean).join(" · ");
   // lang toggle sólo si hay EN
   const lt=document.getElementById("d-lang");
   if(p.en){ lt.innerHTML='<button class="'+(LANG==='es'?'on':'')+'" onclick="setLang(\'es\')">ES</button>/<button class="'+(LANG==='en'?'on':'')+'" onclick="setLang(\'en\')">EN</button>'; }
   else lt.innerHTML='';
-  const story = LANG==='en'&&p.en ? p.en : p.es;
-  document.getElementById("d-story").textContent = story || (p.estado!=="Cerrado" ? "Guion en preparación." : "");
-  document.getElementById("d-close").textContent = p.cierre||"";
+  let story = (LANG==='en'&&p.en) ? p.en : (p.es||"");
+  const close = p.cierre||"";
+  if(LANG!=='en' && close && story.trimEnd().endsWith(close)){ story = story.slice(0, story.lastIndexOf(close)).trimEnd(); }
+  if(!story) story = (p.estado!=="Cerrado" ? "Guion en preparación." : "");
+  document.getElementById("d-story").textContent = story;
+  const showClose = (LANG!=='en') && !!close && p.estado==="Cerrado";
+  const dc=document.getElementById("d-close");
+  dc.textContent = showClose ? close : "";
+  dc.style.display = showClose ? "" : "none";
   document.getElementById("d-tags").innerHTML = (p.ssdd||[]).map(s=>'<span class="chip">'+esc(s)+'</span>').join("")+
        (p.tamanoMax?'<span class="chip">Hasta '+esc(p.tamanoMax)+' cm</span>':'');
   // comercio
@@ -282,7 +289,7 @@ function openDetail(id){
   if(p.estado!=="Cerrado"){
     c.innerHTML='<div class="editorial">Próximamente disponible en copia.</div>';
   }else if(!p.apta){
-    c.innerHTML='<div class="editorial">Esta es una pieza documental. No se vende como copia decorativa, por respeto a lo que retrata.</div>';
+    c.innerHTML='<div class="editorial">Esta es una pieza documental. No se vende como copia decorativa, por respeto a lo que retrata.<br><a href="mailto:hola@nohaynadaquever.com?subject='+encodeURIComponent('Consulta: '+p.titulo+' ('+p.id+')')+'">¿Te interesa igualmente? Escríbeme y lo hablamos →</a></div>';
   }else{
     c.innerHTML =
       '<div class="buy"><h3>Copia firmada</h3>'+
@@ -297,6 +304,41 @@ function openDetail(id){
 }
 function selSize(el){document.querySelectorAll('#sizes .size').forEach(s=>s.classList.remove('sel'));el.classList.add('sel');}
 function setLang(l){LANG=l;const id=(location.hash.split('/')[1]||'');if(id)openDetail(id);}
+
+function setupZoom(){
+  const box=document.getElementById("d-img");
+  if(!box) return;
+  box.onmousemove=box.onmouseleave=box.onclick=null;
+  const oL=box.querySelector(".loupe"); if(oL) oL.remove();
+  const oH=box.querySelector(".zoomhint"); if(oH) oH.remove();
+  const img=box.querySelector("img");
+  if(!img) return;
+  const src=img.getAttribute("src");
+  const lens=document.createElement("div"); lens.className="loupe"; lens.style.backgroundImage="url('"+src+"')"; box.appendChild(lens);
+  const hint=document.createElement("div"); hint.className="zoomhint"; hint.textContent="Clic para ampliar"; box.appendChild(hint);
+  const LS=220;
+  box.onmousemove=function(e){
+    const r=img.getBoundingClientRect();
+    const x=e.clientX-r.left, y=e.clientY-r.top;
+    if(x<0||y<0||x>r.width||y>r.height){lens.style.display="none";return;}
+    const nx=img.naturalWidth||2000, ny=img.naturalHeight||1333;
+    lens.style.display="block";
+    lens.style.backgroundSize=nx+"px "+ny+"px";
+    lens.style.left=(x-LS/2)+"px";
+    lens.style.top=(y-LS/2)+"px";
+    lens.style.backgroundPosition=(-(x/r.width*nx-LS/2))+"px "+(-(y/r.height*ny-LS/2))+"px";
+    hint.style.display="none";
+  };
+  box.onmouseleave=function(){lens.style.display="none";hint.style.display="";};
+  box.onclick=function(){openLightbox(src);};
+}
+function openLightbox(src){
+  const lb=document.createElement("div"); lb.className="lightbox";
+  lb.innerHTML='<span class="x">×</span>';
+  const im=document.createElement("img"); im.src=src; lb.appendChild(im);
+  lb.onclick=function(){lb.remove();};
+  document.body.appendChild(lb);
+}
 
 function show(which){
   ["home","sobre","detail"].forEach(x=>document.getElementById(x).classList.toggle("hidden", x!==which && !(which==="home"&&x==="home")));
