@@ -222,8 +222,7 @@ const PRECIOS = [
 
 let DATA = SAMPLE;
 let LANG = "es";
-const HERO = "L1043077";   // imagen de portada inicial. Cambiar por cualquier ID.
-let heroId = HERO;
+let heroId = null;   // portada: aleatoria en cada carga (respeta "Excluir de portada").
 
 async function loadData(){
   try{
@@ -242,13 +241,10 @@ function imgTag(p,cls){
 const EYE='<svg width="34" height="34" viewBox="0 0 156.63 156.63" fill="#b8b2a4" opacity=".6" xmlns="http://www.w3.org/2000/svg"><circle cx="78.31" cy="78.31" r="22"/><path d="M78.31,26.31c28.67,0,52,23.33,52,52s-23.33,52-52,52-52-23.33-52-52,23.33-52,52-52h0ZM78.31,14.31C42.97,14.31,14.31,42.97,14.31,78.31s28.65,64,64,64,64-28.65,64-64S113.66,14.31,78.31,14.31h0Z"/><path d="M0,148.14c2.67,2.99,5.5,5.82,8.48,8.48L156.63,8.49c-2.67-2.99-5.5-5.82-8.49-8.49L0,148.14Z"/></svg>';
 
 function heroHTML(h){ return imgTag(h)+'<span class="herohint">↻ Otra portada</span>'; }
-function paintHero(){ const hf=document.getElementById("herofig"); if(hf){ const h=DATA.find(x=>x.id===heroId)||DATA[0]; hf.innerHTML=heroHTML(h); } }
-function cycleHero(){
-  const ids=DATA.map(x=>x.id).filter(id=>id!==heroId);
-  if(!ids.length) return;
-  heroId=ids[Math.floor(Math.random()*ids.length)];
-  paintHero();
-}
+function heroPool(){ const e=DATA.filter(p=>!p.heroOff); return e.length?e:DATA; }
+function pickHero(exclude){ let pool=heroPool().filter(p=>p.id!==exclude); if(!pool.length) pool=heroPool(); return pool[Math.floor(Math.random()*pool.length)].id; }
+function paintHero(){ const hf=document.getElementById("herofig"); if(!hf) return; if(!heroId) heroId=pickHero(); const h=DATA.find(x=>x.id===heroId)||DATA[0]; hf.innerHTML=heroHTML(h); }
+function cycleHero(){ heroId=pickHero(heroId); paintHero(); }
 function render(){
   paintHero();
   const g=document.getElementById("grid");

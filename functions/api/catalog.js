@@ -56,6 +56,7 @@ export async function onRequest(context) {
         pais: f["País"] || "",
         ssdd: f["Gancho SSDD"] || [],
         apta: !!f["Apta copia"],
+        heroOff: !!f["Excluir de portada"],
         tamanoMax: f["Tamaño máx"] || "",
         precio: f["Precio"] || null,
         kick: f["Registro"] || "",
